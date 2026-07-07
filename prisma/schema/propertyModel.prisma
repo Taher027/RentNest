@@ -15,6 +15,7 @@ model Property{
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     rentalRequest RentalRequest[]
+    reviews Review[]
 
 
     @@index([landlordId])
