@@ -1,7 +1,6 @@
 export type TProperties = {
   title: string;
   description: string;
-  landlordId: string;
   categoryId: string;
   street: string;
   city: string;

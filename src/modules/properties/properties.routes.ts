@@ -10,4 +10,6 @@ router.post(
   validateRequest(PropertyValidation.createPropertyZodSchema),
   propertiesController.createProperties,
 );
+router.get("/properties", propertiesController.getAllProperties);
+router.get("/properties/:id", propertiesController.getSingleProperties);
 export const propertiesRoutes = router;

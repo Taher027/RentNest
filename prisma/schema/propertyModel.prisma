@@ -9,6 +9,7 @@ model Property{
     street String @db.Text
     city String @db.VarChar(255)
     bedRooms Int
+    price Int
     status PeropertyStatus @default(AVAILABLE)
     areaSize Decimal @db.Decimal(10,2)
     images String[]   @default([])

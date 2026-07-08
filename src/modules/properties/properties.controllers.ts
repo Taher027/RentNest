@@ -5,7 +5,11 @@ import { propertiesService } from "./properties.services";
 
 const createProperties = catchAsync(async (req, res) => {
   const payload = req.body;
-  const result = await propertiesService.createCategoriesToDB(payload);
+  const landLoardId = req.user?.id;
+  const result = await propertiesService.createPropertiesToDB(
+    payload,
+    landLoardId as string,
+  );
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -13,6 +17,32 @@ const createProperties = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+const getAllProperties = catchAsync(async (req, res) => {
+  const payload = req.body;
+  const landLoardId = req.user?.id;
+  const result = await propertiesService.getAllPropertiesFromDB();
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Properties retrieved successfull",
+    data: result,
+  });
+});
+const getSingleProperties = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await propertiesService.getSinglePropertiesFromDB(
+    id as string,
+  );
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Property retrieved successfull",
+    data: result,
+  });
+});
 export const propertiesController = {
   createProperties,
+  getAllProperties,
+  getSingleProperties,
 };

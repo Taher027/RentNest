@@ -28,11 +28,13 @@ export type AggregateProperty = {
 
 export type PropertyAvgAggregateOutputType = {
   bedRooms: number | null
+  price: number | null
   areaSize: runtime.Decimal | null
 }
 
 export type PropertySumAggregateOutputType = {
   bedRooms: number | null
+  price: number | null
   areaSize: runtime.Decimal | null
 }
 
@@ -45,6 +47,7 @@ export type PropertyMinAggregateOutputType = {
   street: string | null
   city: string | null
   bedRooms: number | null
+  price: number | null
   status: $Enums.PeropertyStatus | null
   areaSize: runtime.Decimal | null
   createdAt: Date | null
@@ -60,6 +63,7 @@ export type PropertyMaxAggregateOutputType = {
   street: string | null
   city: string | null
   bedRooms: number | null
+  price: number | null
   status: $Enums.PeropertyStatus | null
   areaSize: runtime.Decimal | null
   createdAt: Date | null
@@ -75,6 +79,7 @@ export type PropertyCountAggregateOutputType = {
   street: number
   city: number
   bedRooms: number
+  price: number
   status: number
   areaSize: number
   images: number
@@ -86,11 +91,13 @@ export type PropertyCountAggregateOutputType = {
 
 export type PropertyAvgAggregateInputType = {
   bedRooms?: true
+  price?: true
   areaSize?: true
 }
 
 export type PropertySumAggregateInputType = {
   bedRooms?: true
+  price?: true
   areaSize?: true
 }
 
@@ -103,6 +110,7 @@ export type PropertyMinAggregateInputType = {
   street?: true
   city?: true
   bedRooms?: true
+  price?: true
   status?: true
   areaSize?: true
   createdAt?: true
@@ -118,6 +126,7 @@ export type PropertyMaxAggregateInputType = {
   street?: true
   city?: true
   bedRooms?: true
+  price?: true
   status?: true
   areaSize?: true
   createdAt?: true
@@ -133,6 +142,7 @@ export type PropertyCountAggregateInputType = {
   street?: true
   city?: true
   bedRooms?: true
+  price?: true
   status?: true
   areaSize?: true
   images?: true
@@ -236,6 +246,7 @@ export type PropertyGroupByOutputType = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status: $Enums.PeropertyStatus
   areaSize: runtime.Decimal
   images: string[]
@@ -275,6 +286,7 @@ export type PropertyWhereInput = {
   street?: Prisma.StringFilter<"Property"> | string
   city?: Prisma.StringFilter<"Property"> | string
   bedRooms?: Prisma.IntFilter<"Property"> | number
+  price?: Prisma.IntFilter<"Property"> | number
   status?: Prisma.EnumPeropertyStatusFilter<"Property"> | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.StringNullableListFilter<"Property">
@@ -295,6 +307,7 @@ export type PropertyOrderByWithRelationInput = {
   street?: Prisma.SortOrder
   city?: Prisma.SortOrder
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
   images?: Prisma.SortOrder
@@ -318,6 +331,7 @@ export type PropertyWhereUniqueInput = Prisma.AtLeast<{
   street?: Prisma.StringFilter<"Property"> | string
   city?: Prisma.StringFilter<"Property"> | string
   bedRooms?: Prisma.IntFilter<"Property"> | number
+  price?: Prisma.IntFilter<"Property"> | number
   status?: Prisma.EnumPeropertyStatusFilter<"Property"> | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.StringNullableListFilter<"Property">
@@ -338,6 +352,7 @@ export type PropertyOrderByWithAggregationInput = {
   street?: Prisma.SortOrder
   city?: Prisma.SortOrder
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
   images?: Prisma.SortOrder
@@ -362,6 +377,7 @@ export type PropertyScalarWhereWithAggregatesInput = {
   street?: Prisma.StringWithAggregatesFilter<"Property"> | string
   city?: Prisma.StringWithAggregatesFilter<"Property"> | string
   bedRooms?: Prisma.IntWithAggregatesFilter<"Property"> | number
+  price?: Prisma.IntWithAggregatesFilter<"Property"> | number
   status?: Prisma.EnumPeropertyStatusWithAggregatesFilter<"Property"> | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalWithAggregatesFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.StringNullableListFilter<"Property">
@@ -376,6 +392,7 @@ export type PropertyCreateInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -396,6 +413,7 @@ export type PropertyUncheckedCreateInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -412,6 +430,7 @@ export type PropertyUpdateInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -432,6 +451,7 @@ export type PropertyUncheckedUpdateInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -450,6 +470,7 @@ export type PropertyCreateManyInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -464,6 +485,7 @@ export type PropertyUpdateManyMutationInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -480,6 +502,7 @@ export type PropertyUncheckedUpdateManyInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -514,6 +537,7 @@ export type PropertyCountOrderByAggregateInput = {
   street?: Prisma.SortOrder
   city?: Prisma.SortOrder
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
   images?: Prisma.SortOrder
@@ -523,6 +547,7 @@ export type PropertyCountOrderByAggregateInput = {
 
 export type PropertyAvgOrderByAggregateInput = {
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
 }
 
@@ -535,6 +560,7 @@ export type PropertyMaxOrderByAggregateInput = {
   street?: Prisma.SortOrder
   city?: Prisma.SortOrder
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -550,6 +576,7 @@ export type PropertyMinOrderByAggregateInput = {
   street?: Prisma.SortOrder
   city?: Prisma.SortOrder
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -558,6 +585,7 @@ export type PropertyMinOrderByAggregateInput = {
 
 export type PropertySumOrderByAggregateInput = {
   bedRooms?: Prisma.SortOrder
+  price?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
 }
 
@@ -714,6 +742,7 @@ export type PropertyCreateWithoutCategoryInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -732,6 +761,7 @@ export type PropertyUncheckedCreateWithoutCategoryInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -779,6 +809,7 @@ export type PropertyScalarWhereInput = {
   street?: Prisma.StringFilter<"Property"> | string
   city?: Prisma.StringFilter<"Property"> | string
   bedRooms?: Prisma.IntFilter<"Property"> | number
+  price?: Prisma.IntFilter<"Property"> | number
   status?: Prisma.EnumPeropertyStatusFilter<"Property"> | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFilter<"Property"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.StringNullableListFilter<"Property">
@@ -793,6 +824,7 @@ export type PropertyCreateWithoutRentalRequestInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -812,6 +844,7 @@ export type PropertyUncheckedCreateWithoutRentalRequestInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -843,6 +876,7 @@ export type PropertyUpdateWithoutRentalRequestInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -862,6 +896,7 @@ export type PropertyUncheckedUpdateWithoutRentalRequestInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -877,6 +912,7 @@ export type PropertyCreateWithoutReviewsInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -896,6 +932,7 @@ export type PropertyUncheckedCreateWithoutReviewsInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -927,6 +964,7 @@ export type PropertyUpdateWithoutReviewsInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -946,6 +984,7 @@ export type PropertyUncheckedUpdateWithoutReviewsInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -961,6 +1000,7 @@ export type PropertyCreateWithoutLandlordInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -979,6 +1019,7 @@ export type PropertyUncheckedCreateWithoutLandlordInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -1022,6 +1063,7 @@ export type PropertyCreateManyCategoryInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -1036,6 +1078,7 @@ export type PropertyUpdateWithoutCategoryInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -1054,6 +1097,7 @@ export type PropertyUncheckedUpdateWithoutCategoryInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -1071,6 +1115,7 @@ export type PropertyUncheckedUpdateManyWithoutCategoryInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -1086,6 +1131,7 @@ export type PropertyCreateManyLandlordInput = {
   street: string
   city: string
   bedRooms: number
+  price: number
   status?: $Enums.PeropertyStatus
   areaSize: runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyCreateimagesInput | string[]
@@ -1100,6 +1146,7 @@ export type PropertyUpdateWithoutLandlordInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -1118,6 +1165,7 @@ export type PropertyUncheckedUpdateWithoutLandlordInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -1135,6 +1183,7 @@ export type PropertyUncheckedUpdateManyWithoutLandlordInput = {
   street?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bedRooms?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.EnumPeropertyStatusFieldUpdateOperationsInput | $Enums.PeropertyStatus
   areaSize?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   images?: Prisma.PropertyUpdateimagesInput | string[]
@@ -1191,6 +1240,7 @@ export type PropertySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   street?: boolean
   city?: boolean
   bedRooms?: boolean
+  price?: boolean
   status?: boolean
   areaSize?: boolean
   images?: boolean
@@ -1212,6 +1262,7 @@ export type PropertySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   street?: boolean
   city?: boolean
   bedRooms?: boolean
+  price?: boolean
   status?: boolean
   areaSize?: boolean
   images?: boolean
@@ -1230,6 +1281,7 @@ export type PropertySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   street?: boolean
   city?: boolean
   bedRooms?: boolean
+  price?: boolean
   status?: boolean
   areaSize?: boolean
   images?: boolean
@@ -1248,6 +1300,7 @@ export type PropertySelectScalar = {
   street?: boolean
   city?: boolean
   bedRooms?: boolean
+  price?: boolean
   status?: boolean
   areaSize?: boolean
   images?: boolean
@@ -1255,7 +1308,7 @@ export type PropertySelectScalar = {
   updatedAt?: boolean
 }
 
-export type PropertyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "landlordId" | "categoryId" | "street" | "city" | "bedRooms" | "status" | "areaSize" | "images" | "createdAt" | "updatedAt", ExtArgs["result"]["property"]>
+export type PropertyOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "landlordId" | "categoryId" | "street" | "city" | "bedRooms" | "price" | "status" | "areaSize" | "images" | "createdAt" | "updatedAt", ExtArgs["result"]["property"]>
 export type PropertyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   landlord?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
@@ -1289,6 +1342,7 @@ export type $PropertyPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     street: string
     city: string
     bedRooms: number
+    price: number
     status: $Enums.PeropertyStatus
     areaSize: runtime.Decimal
     images: string[]
@@ -1729,6 +1783,7 @@ export interface PropertyFieldRefs {
   readonly street: Prisma.FieldRef<"Property", 'String'>
   readonly city: Prisma.FieldRef<"Property", 'String'>
   readonly bedRooms: Prisma.FieldRef<"Property", 'Int'>
+  readonly price: Prisma.FieldRef<"Property", 'Int'>
   readonly status: Prisma.FieldRef<"Property", 'PeropertyStatus'>
   readonly areaSize: Prisma.FieldRef<"Property", 'Decimal'>
   readonly images: Prisma.FieldRef<"Property", 'String[]'>

@@ -10,8 +10,6 @@ const createPropertyZodSchema = z.object({
     .string("Description is required")
     .min(10, "Description must be at least 10 characters"),
 
-  landlordId: z.string("Landlord ID is required").uuid("Invalid landlord ID"),
-
   categoryId: z.string("Category ID is required").uuid("Invalid category ID"),
 
   street: z
@@ -44,7 +42,6 @@ const createPropertyZodSchema = z.object({
 const updatePropertyZodSchema = z.object({
   title: z.string().min(3).max(255).optional(),
   description: z.string().min(10).optional(),
-  landlordId: z.string().uuid().optional(),
   categoryId: z.string().uuid().optional(),
   street: z.string().min(3).optional(),
   city: z.string().min(2).max(255).optional(),

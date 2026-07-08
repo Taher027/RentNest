@@ -22,19 +22,16 @@ export const auth = (...requiredRoles: UserRole[]) => {
           "You are not logged in. Please log in to access this resource.",
         );
       }
-      console.log(token, "inside auth.ts");
       const verifiedToken = jwtHelpers.verifyToken(
         token,
         config.jwt_access_token_secret as string,
       );
-      console.log(verifiedToken, "insdie auth.ts");
 
       if (!verifiedToken.success) {
         throw new ApiError(401, verifiedToken.error);
       }
 
       const { email, id, role } = verifiedToken.data as JwtPayload;
-      console.log("email:", email, "role:", role);
 
       if (requiredRoles.length && !requiredRoles.includes(role)) {
         throw new ApiError(401, "Unauthorized access.");
@@ -47,7 +44,7 @@ export const auth = (...requiredRoles: UserRole[]) => {
       });
 
       if (!user) {
-        throw new ApiError(404, "User not found. Please log in again.");
+        throw new ApiError(404, "User not found. Please login again.");
       }
 
       if (user.status === "BLOCKED") {
