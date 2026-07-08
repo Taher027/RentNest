@@ -1,7 +1,13 @@
-// import { Router } from "express";
-// import { authController } from "./auth.controller";
-// const router = Router();
+import { Router } from "express";
+import { authController } from "./auth.controller";
+import validateRequest from "../../middleware/validateRequest";
+import { authValidation } from "./auth.validation";
+const router = Router();
 
-// router.post("/register", authController.userRegister);
+router.post(
+  "/login",
+  validateRequest(authValidation.loginSchema),
+  authController.userLogin,
+);
 
-// export const authRouter = router;
+export const authRouter = router;

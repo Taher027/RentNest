@@ -4,12 +4,11 @@ import { ZodType } from "zod";
 const validateRequest =
   (schema: ZodType): RequestHandler =>
   async (req: Request, res: Response, next: NextFunction) => {
-    console.log("hi");
+    console.log("hit ");
     try {
-      console.log("inside validation before validation", req.body);
-      req.body = await schema.parseAsync(req.body);
+      console.log(req.body);
+      await schema.parseAsync(req.body);
 
-      console.log("aftervalidation", req.body);
       next();
     } catch (error) {
       next(error);

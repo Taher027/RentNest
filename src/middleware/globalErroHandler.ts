@@ -8,7 +8,7 @@ import { IGenericErrorMessage } from "../types";
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500;
   let message = "Something went wrong!";
-  let errorMessages: IGenericErrorMessage[] = [];
+  let errorMessages: IGenericErrorMessage[] = error.message;
 
   if (error instanceof ZodError) {
     const simplifiedError = handleZodError(error);

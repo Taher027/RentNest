@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserRole } from "../../../generated/prisma/enums";
+import { UserRole } from "../../../prisma/generated/prisma/enums";
 
 export const createUserSchema = z.object({
   name: z
