@@ -58,6 +58,7 @@ const updateProperties = catchAsync(async (req, res) => {
 });
 const getAllOwnProperties = catchAsync(async (req, res) => {
   const userId = req.user?.id;
+  console.log(userId, "at own pro");
   const result = await propertiesService.getallOwnPropertiesFromDB(
     userId as string,
   );
@@ -68,10 +69,26 @@ const getAllOwnProperties = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const deleteProperties = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user?.id;
+  const role = req.user?.role;
+  await propertiesService.deletePropertiesFromDB(
+    userId as string,
+    role as string,
+    id as string,
+  );
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Property deleted successfull",
+  });
+});
 export const propertiesController = {
   createProperties,
   getAllProperties,
   getSingleProperties,
   updateProperties,
   getAllOwnProperties,
+  deleteProperties,
 };

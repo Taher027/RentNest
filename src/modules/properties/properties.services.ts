@@ -17,7 +17,8 @@ const getAllPropertiesFromDB = async () => {
   return data;
 };
 const getSinglePropertiesFromDB = async (id: string) => {
-  const data = await prisma.property.findUnique({ where: { id } });
+  const data = await prisma.property.findUniqueOrThrow({ where: { id } });
+  console.log(data, "inside single pro");
   return data;
 };
 const updatePropertiseToDB = async (
@@ -25,13 +26,9 @@ const updatePropertiseToDB = async (
   propertyId: string,
   payload: Partial<TProperties>,
 ) => {
-  const property = await prisma.property.findUnique({
+  const property = await prisma.property.findUniqueOrThrow({
     where: { id: propertyId },
   });
-
-  if (!property) {
-    throw new ApiError(404, "Property not found !");
-  }
 
   if (userId !== property.landlordId) {
     throw new ApiError(401, "Unauthorized for this action !");
@@ -43,8 +40,26 @@ const updatePropertiseToDB = async (
   return updateProperty;
 };
 const getallOwnPropertiesFromDB = async (id: string) => {
+  console.log(id);
   const data = await prisma.property.findMany({ where: { landlordId: id } });
   return data;
+};
+const deletePropertiesFromDB = async (
+  userId: string,
+  role: string,
+  propertyId: string,
+) => {
+  const property = await prisma.property.findUniqueOrThrow({
+    where: { id: propertyId },
+  });
+
+  if (userId !== property.landlordId && role !== "ADMIN") {
+    throw new ApiError(401, "Unauthorized for this action !");
+  }
+  const updateProperty = await prisma.property.delete({
+    where: { id: propertyId },
+  });
+  return "success";
 };
 export const propertiesService = {
   createPropertiesToDB,
@@ -52,4 +67,5 @@ export const propertiesService = {
   getSinglePropertiesFromDB,
   updatePropertiseToDB,
   getallOwnPropertiesFromDB,
+  deletePropertiesFromDB,
 };
