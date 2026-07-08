@@ -5,13 +5,18 @@ import { PropertyValidation } from "./properties.validations";
 import { auth } from "../../middleware/auth";
 const router = Router();
 router.post(
-  "/properties",
+  "/landlord/properties",
   auth("ADMIN", "LANDLORD"),
   validateRequest(PropertyValidation.createPropertyZodSchema),
   propertiesController.createProperties,
 );
-router.post(
+router.put(
   "/properties/:id",
+  auth("LANDLORD"),
+  propertiesController.updateProperties,
+);
+router.get(
+  "/landlord/:id",
   auth("LANDLORD"),
   propertiesController.updateProperties,
 );

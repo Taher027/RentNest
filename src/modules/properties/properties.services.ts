@@ -42,9 +42,14 @@ const updatePropertiseToDB = async (
   });
   return updateProperty;
 };
+const getallOwnPropertiesFromDB = async (id: string) => {
+  const data = await prisma.property.findMany({ where: { landlordId: id } });
+  return data;
+};
 export const propertiesService = {
   createPropertiesToDB,
   getAllPropertiesFromDB,
   getSinglePropertiesFromDB,
   updatePropertiseToDB,
+  getallOwnPropertiesFromDB,
 };
