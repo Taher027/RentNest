@@ -9,5 +9,6 @@ router.post(
   validateRequest(authValidation.loginSchema),
   authController.userLogin,
 );
+router.get("/getme", authController.getMe);
 
 export const authRouter = router;

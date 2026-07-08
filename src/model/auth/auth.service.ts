@@ -42,6 +42,24 @@ const userLoginToDB = async (payload: TLogin) => {
   };
 };
 
+const getMeFromDb = async (token: string) => {
+  const userData = jwtHelpers.verifyToken(
+    token,
+    config.jwt_access_token_secret as string,
+  );
+  if (!userData) {
+    throw new ApiError(401, "Access unauthorized please login.");
+  }
+  const { email } = userData;
+  const user = await prisma.user.findUnique({
+    where: { email },
+    omit: { password: true },
+  });
+
+  return user;
+};
+
 export const authService = {
   userLoginToDB,
+  getMeFromDb,
 };

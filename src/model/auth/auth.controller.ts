@@ -28,7 +28,19 @@ const userLogin = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getMe = catchAsync(async (req: Request, res: Response) => {
+  const token = req.cookies?.accessToken;
+  const result = await authService.getMeFromDb(token as string);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "User retrieved Successfull",
+    data: result,
+  });
+});
 
 export const authController = {
   userLogin,
+  getMe,
 };
