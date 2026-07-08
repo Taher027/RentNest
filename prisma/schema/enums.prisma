@@ -3,11 +3,15 @@ enum UserRole{
     LANDLORD
     ADMIN
 }
-
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
 enum PeropertyStatus{
     AVAILABLE
     RENTED
-    INACTIVE
+    UNAVAILABLE
 }
 enum RequestStatus {
     PENDING

@@ -36,7 +36,17 @@ const createUserToDB = async (payload: IUser) => {
 
   return createdUser;
 };
+const getAllUsersFromDb = async () => {
+  const data = await prisma.user.findMany({ omit: { password: true } });
+  return data;
+};
+const deleteAllusersFromDB = async () => {
+  const data = await prisma.user.deleteMany({});
+  return data;
+};
 
 export const userServices = {
   createUserToDB,
+  getAllUsersFromDb,
+  deleteAllusersFromDB,
 };

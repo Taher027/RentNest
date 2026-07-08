@@ -9,5 +9,7 @@ router.post(
   validateRequest(userValidation.createUserSchema),
   userControllers.registerUser,
 );
+router.get("/users", userControllers.getAllUsers);
+router.delete("/users", userControllers.deleteUsers);
 
 export const userRoute = router;

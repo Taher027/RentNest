@@ -18,10 +18,19 @@ export const UserRole = {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  BLOCKED: 'BLOCKED'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
 export const PeropertyStatus = {
   AVAILABLE: 'AVAILABLE',
   RENTED: 'RENTED',
-  INACTIVE: 'INACTIVE'
+  UNAVAILABLE: 'UNAVAILABLE'
 } as const
 
 export type PeropertyStatus = (typeof PeropertyStatus)[keyof typeof PeropertyStatus]

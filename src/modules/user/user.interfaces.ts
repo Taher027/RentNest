@@ -6,6 +6,6 @@ export type IUser = {
   nidNumber: string;
   role?: "TENANT" | "LANDLORD" | "ADMIN";
   avatar: string;
-  isVerified: boolean;
+  isVerified?: boolean;
   address: string;
 };

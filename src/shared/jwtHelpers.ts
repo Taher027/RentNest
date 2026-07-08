@@ -21,8 +21,16 @@ const createToken = (
 //   } as SignOptions);
 // };
 
-const verifyToken = (token: string, secret: Secret): JwtPayload => {
-  return jwt.verify(token, secret) as JwtPayload;
+const verifyToken = (
+  token: string,
+  secret: Secret,
+): { success: boolean; data?: JwtPayload; error?: string } => {
+  try {
+    const data = jwt.verify(token, secret) as JwtPayload;
+    return { success: true, data };
+  } catch (error: any) {
+    return error.message;
+  }
 };
 
 export const jwtHelpers = {

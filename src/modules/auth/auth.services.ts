@@ -26,7 +26,7 @@ const userLoginToDB = async (payload: TLogin) => {
     role: user.role,
   };
   const accessToken = jwtHelpers.createToken(
-    payload,
+    payloadData,
     config.jwt_access_token_secret as string,
     config.jwt_access_token_expireIn as string,
   );

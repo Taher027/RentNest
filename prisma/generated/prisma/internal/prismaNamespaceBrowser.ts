@@ -140,6 +140,7 @@ export const UserScalarFieldEnum = {
   nidNumber: 'nidNumber',
   role: 'role',
   avatar: 'avatar',
+  status: 'status',
   isVerified: 'isVerified',
   address: 'address',
   createdAt: 'createdAt',

@@ -2,10 +2,12 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import config from "./config";
 import cookieParser from "cookie-parser";
-import { userRoute } from "./model/user/user.routes";
+import { userRoute } from "./modules/user/user.routes";
 import globalErrorHandler from "./middleware/globalErroHandler";
 import notFound from "./middleware/notFound";
-import { authRouter } from "./model/auth/auth.route";
+import { authRouter } from "./modules/auth/auth.routes";
+import { categoriesRoute } from "./modules/categories/categories.routes";
+import { propertiesRoutes } from "./modules/properties/properties.routes";
 const app: Application = express();
 app.use(
   cors({
@@ -23,6 +25,8 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/auth", userRoute);
 app.use("/api/auth", authRouter);
+app.use("/api", categoriesRoute);
+app.use("/api", propertiesRoutes);
 
 app.use(globalErrorHandler);
 app.use(notFound);

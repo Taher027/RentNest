@@ -7,7 +7,8 @@ model User {
     nidNumber String @unique @db.VarChar(50)
     role UserRole @default(TENANT)
     avatar String? @db.Text
-    isVerified Boolean @default(false)
+    status UserStatus @default(ACTIVE)
+    isVerified Boolean? @default(false)
     address String? @db.Text
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
