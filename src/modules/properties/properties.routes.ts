@@ -14,7 +14,7 @@ router.get("/properties", propertiesController.getAllProperties);
 router.get("/properties/:id", propertiesController.getSingleProperties);
 router.post(
   "/landlord/properties",
-  auth("ADMIN", "LANDLORD"),
+  auth("LANDLORD"),
   validateRequest(PropertyValidation.createPropertyZodSchema),
   propertiesController.createProperties,
 );

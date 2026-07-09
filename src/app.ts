@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import config from "./config";
 import cookieParser from "cookie-parser";
-import { userRoute } from "./modules/user/user.routes";
+import { userAdminRoute, userRoute } from "./modules/user/user.routes";
 import globalErrorHandler from "./middleware/globalErroHandler";
 import notFound from "./middleware/notFound";
 import { authRouter } from "./modules/auth/auth.routes";
@@ -24,6 +24,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", userRoute);
+app.use("/api/admin", userAdminRoute);
 app.use("/api/auth", authRouter);
 app.use("/api", categoriesRoute);
 app.use("/api", propertiesRoutes);

@@ -23,6 +23,17 @@ const getAllUsers = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const updatedUserStatus = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const userRole = req.body;
+  const result = await userServices.updatedUserRoleToDB(id as string, userRole);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "User updated successfull",
+    data: result,
+  });
+});
 const deleteUsers = catchAsync(async (req, res) => {
   const result = await userServices.deleteAllusersFromDB();
   sendResponse(res, {
@@ -34,5 +45,6 @@ const deleteUsers = catchAsync(async (req, res) => {
 export const userControllers = {
   registerUser,
   getAllUsers,
+  updatedUserStatus,
   deleteUsers,
 };

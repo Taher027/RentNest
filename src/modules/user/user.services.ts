@@ -5,6 +5,7 @@ import { IUser } from "./user.interfaces";
 import config from "../../config";
 import status from "http-status";
 import { omit } from "zod/mini";
+import { UserStatus } from "../../../prisma/generated/prisma/enums";
 
 const createUserToDB = async (payload: IUser) => {
   const { email, password, ...rest } = payload;
@@ -40,6 +41,13 @@ const getAllUsersFromDb = async () => {
   const data = await prisma.user.findMany({ omit: { password: true } });
   return data;
 };
+const updatedUserRoleToDB = async (userId: string, status: UserStatus) => {
+  const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+  const updatedUser = await prisma.user.update({
+    where: { id: user.id },
+    data: status,
+  });
+};
 const deleteAllusersFromDB = async () => {
   const data = await prisma.user.deleteMany({});
   return data;
@@ -49,4 +57,5 @@ export const userServices = {
   createUserToDB,
   getAllUsersFromDb,
   deleteAllusersFromDB,
+  updatedUserRoleToDB,
 };

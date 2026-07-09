@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { UserRole } from "../../../prisma/generated/prisma/enums";
 
-export const createUserSchema = z.object({
+const createUserSchema = z.object({
   name: z
     .string()
     .trim()
@@ -32,6 +32,11 @@ export const createUserSchema = z.object({
 
   isVerified: z.boolean().optional(),
 });
+
+const UserStatusSchema = z.object({
+  status: z.enum(["ACTIVE", "INACTIVE", "BLOCKED"]),
+});
 export const userValidation = {
   createUserSchema,
+  UserStatusSchema,
 };
