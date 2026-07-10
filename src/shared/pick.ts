@@ -1,4 +1,5 @@
 export type TPropertyFilters = {
+  title?: string;
   searchTerm?: string;
   city?: string;
   minPrice?: string;

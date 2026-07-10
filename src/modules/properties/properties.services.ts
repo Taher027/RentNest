@@ -3,6 +3,7 @@ import ApiError from "../../error/ApiError";
 import { prisma } from "../../lib/prisma";
 import { TPropertyFilters } from "../../shared/pick";
 import { TProperties } from "./properties.interface";
+import httpStatus from "http-status";
 
 const createPropertiesToDB = async (
   payload: TProperties,
@@ -26,8 +27,16 @@ const createPropertiesToDB = async (
   return data;
 };
 const getAllPropertiesFromDB = async (filters: TPropertyFilters) => {
-  const { searchTerm, city, minPrice, maxPrice, bedRooms, status, categoryId } =
-    filters;
+  const {
+    title,
+    searchTerm,
+    city,
+    minPrice,
+    maxPrice,
+    bedRooms,
+    status,
+    categoryId,
+  } = filters;
 
   const andConditions: Prisma.PropertyWhereInput[] = [];
   if (searchTerm) {
@@ -37,6 +46,11 @@ const getAllPropertiesFromDB = async (filters: TPropertyFilters) => {
         { city: { contains: searchTerm, mode: "insensitive" } },
         { street: { contains: searchTerm, mode: "insensitive" } },
       ],
+    });
+  }
+  if (title) {
+    andConditions.push({
+      title: { contains: title, mode: "insensitive" },
     });
   }
   if (city) {
@@ -101,7 +115,22 @@ const updatePropertiseToDB = async (
   });
 
   if (userId !== property.landlordId) {
-    throw new ApiError(401, "Unauthorized for this action !");
+    throw new ApiError(httpStatus.FORBIDDEN, "Unauthorized for this action !");
+  }
+  if (payload.status === "AVAILABLE" && property.status === "RENTED") {
+    const activeApprovedRequest = await prisma.rentalRequest.findFirst({
+      where: {
+        propertyId: propertyId,
+        status: "APPROVED",
+      },
+    });
+
+    if (activeApprovedRequest) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "Cannot mark as available — there is an active approved rental request for this property",
+      );
+    }
   }
   const updateProperty = await prisma.property.update({
     where: { id: propertyId },

@@ -166,9 +166,26 @@ const updatedRentalRequestToDB = async (
 
   return result;
 };
+const getRentalRequestHistoryFromDB = async (
+  tenantId: string,
+  rentalId: string,
+) => {
+  const rental = await prisma.rentalRequest.findUniqueOrThrow({
+    where: { id: rentalId },
+  });
+  if (tenantId !== rental.tenantId) {
+    throw new ApiError(
+      httpStatus.FORBIDDEN,
+      "You are not authorized to update this rental request",
+    );
+  }
+
+  return { status: rental?.status };
+};
 export const rentalRequestService = {
   createRentalRequestToDB,
   getRentalRequestToDB,
   getRentalRequestDetailsFromDB,
   updatedRentalRequestToDB,
+  getRentalRequestHistoryFromDB,
 };

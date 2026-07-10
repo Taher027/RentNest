@@ -43,6 +43,20 @@ const getRentalRequestDetails = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getRentalRequestHistory = catchAsync(async (req, res) => {
+  const userId = req.user?.id;
+  const { id } = req.params;
+  const result = await rentalRequestService.getRentalRequestHistoryFromDB(
+    userId as string,
+    id as string,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Retrived rental history  Successfull",
+    data: result,
+  });
+});
 const updatedRentalRequest = catchAsync(async (req, res) => {
   const user = req.user;
   const { id } = req.params;
@@ -64,4 +78,5 @@ export const rentalRequestController = {
   getRentalRequest,
   getRentalRequestDetails,
   updatedRentalRequest,
+  getRentalRequestHistory,
 };

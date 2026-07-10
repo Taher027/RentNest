@@ -21,8 +21,8 @@ const createProperties = catchAsync(async (req, res) => {
 });
 
 const getAllProperties = catchAsync(async (req, res) => {
-  console.log(req.query, req.originalUrl);
   const filters = pick(req.query, [
+    "title",
     "searchTerm",
     "city",
     "minPrice",

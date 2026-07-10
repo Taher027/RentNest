@@ -20,6 +20,11 @@ router.get(
   auth("TENANT", "ADMIN", "LANDLORD"),
   rentalRequestController.getRentalRequestDetails,
 );
+router.get(
+  "/rentals/status/:id",
+  auth("TENANT"),
+  rentalRequestController.getRentalRequestHistory,
+);
 router.patch(
   "/rentals/:id",
   validateRequest(rentalRequestSchemas.updateRentalRequestSchema),
