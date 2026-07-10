@@ -2,7 +2,10 @@ import ApiError from "../../error/ApiError";
 import { prisma } from "../../lib/prisma";
 import { TRentalRequest } from "./rentalRequest.interfaces";
 
-const createRentalRequest = async (userId: string, payload: TRentalRequest) => {
+const createRentalRequestToDB = async (
+  userId: string,
+  payload: TRentalRequest,
+) => {
   const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
 
   if (user.status === "BLOCKED" || user.status === "INACTIVE") {
@@ -57,6 +60,23 @@ const createRentalRequest = async (userId: string, payload: TRentalRequest) => {
   return rental;
 };
 
+const getRentalRequestToDB = async (id: string) => {
+  console.log(id, "getRental");
+  const rental = await prisma.rentalRequest.findMany({
+    where: { tenantId: id },
+  });
+  return rental;
+};
+const getRentalRequestDetailsFromDB = async (id: string) => {
+  const rentalDetails = await prisma.rentalRequest.findUniqueOrThrow({
+    where: { id },
+    include: { property: true },
+  });
+  return rentalDetails;
+};
+
 export const rentalRequestService = {
-  createRentalRequest,
+  createRentalRequestToDB,
+  getRentalRequestToDB,
+  getRentalRequestDetailsFromDB,
 };

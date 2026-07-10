@@ -8,5 +8,15 @@ router.post(
   auth("TENANT"),
   rentalRequestController.createRentalRequest,
 );
+router.get(
+  "/rentals",
+  auth("TENANT"),
+  rentalRequestController.getRentalRequest,
+);
+router.get(
+  "/rentals/:id",
+  auth("TENANT", "ADMIN", "LANDLORD"),
+  rentalRequestController.getRentalRequestDetails,
+);
 
 export const rentalRequestRoutes = router;
