@@ -2,6 +2,8 @@ import status from "http-status";
 import catchAsync from "../../shared/catchAsync";
 import sendResponse from "../../shared/sendResponse";
 import { propertiesService } from "./properties.services";
+import pick from "../../shared/pick";
+import httpStatus from "http-status";
 
 const createProperties = catchAsync(async (req, res) => {
   const payload = req.body;
@@ -19,11 +21,20 @@ const createProperties = catchAsync(async (req, res) => {
 });
 
 const getAllProperties = catchAsync(async (req, res) => {
-  const payload = req.body;
-  const landLoardId = req.user?.id;
-  const result = await propertiesService.getAllPropertiesFromDB();
+  console.log(req.query, req.originalUrl);
+  const filters = pick(req.query, [
+    "searchTerm",
+    "city",
+    "minPrice",
+    "maxPrice",
+    "bedRooms",
+    "status",
+    "categoryId",
+  ]);
+
+  const result = await propertiesService.getAllPropertiesFromDB(filters);
   sendResponse(res, {
-    statusCode: status.OK,
+    statusCode: httpStatus.OK,
     success: true,
     message: "Properties retrieved successfull",
     data: result,

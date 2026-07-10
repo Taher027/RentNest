@@ -126,6 +126,13 @@ const updatedRentalRequestToDB = async (
   }
 
   if (Rentalstatus === "APPROVED") {
+    if (rentalRequest.property.status === "RENTED") {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "This property is already rented, cannot approve this request",
+      );
+    }
+
     const alreadyApproved = await prisma.rentalRequest.findFirst({
       where: {
         propertyId: rentalRequest.propertyId,
@@ -141,12 +148,23 @@ const updatedRentalRequestToDB = async (
     }
   }
 
-  const updatedRental = await prisma.rentalRequest.update({
-    where: { id: rentalId },
-    data: { status: Rentalstatus },
+  const result = await prisma.$transaction(async (tx) => {
+    const updatedRental = await tx.rentalRequest.update({
+      where: { id: rentalId },
+      data: { status: Rentalstatus },
+    });
+
+    if (Rentalstatus === "APPROVED") {
+      await tx.property.update({
+        where: { id: rentalRequest.propertyId },
+        data: { status: "RENTED" },
+      });
+    }
+
+    return updatedRental;
   });
 
-  return updatedRental;
+  return result;
 };
 export const rentalRequestService = {
   createRentalRequestToDB,
