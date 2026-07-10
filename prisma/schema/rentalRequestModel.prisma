@@ -5,13 +5,13 @@ model RentalRequest {
     propertyId String
     property Property @relation(fields: [propertyId],references: [id],onDelete: Cascade)
     moveInDate DateTime
-    moveOutTime DateTime?
+    moveOutDate DateTime?
     status RequestStatus @default(PENDING)
     message String? @db.Text
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-
+    @@unique([tenantId,propertyId])
     @@index([tenantId, propertyId])
     @@map("rental-requests")
 }

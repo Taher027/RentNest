@@ -13,6 +13,7 @@ router.post(
 );
 
 adminRoute.get("/users", auth("ADMIN"), userControllers.getAllUsers);
+adminRoute.get("/users/:id", auth("ADMIN"), userControllers.getSingleUser);
 adminRoute.patch(
   "/users/:id",
   validateRequest(userValidation.UserStatusSchema),

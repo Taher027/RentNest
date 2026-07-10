@@ -23,6 +23,17 @@ const getAllUsers = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getSingleUser = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await userServices.getSingleUserFromDb(id as string);
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "User retrieved successfull",
+    data: result,
+  });
+});
+
 const updatedUserStatus = catchAsync(async (req, res) => {
   const { id } = req.params;
   const userRole = req.body;
@@ -45,6 +56,7 @@ const deleteUsers = catchAsync(async (req, res) => {
 export const userControllers = {
   registerUser,
   getAllUsers,
+  getSingleUser,
   updatedUserStatus,
   deleteUsers,
 };

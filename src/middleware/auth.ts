@@ -40,6 +40,7 @@ export const auth = (...requiredRoles: UserRole[]) => {
       const user = await prisma.user.findUnique({
         where: {
           id,
+          email,
         },
       });
 

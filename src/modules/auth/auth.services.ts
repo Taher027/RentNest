@@ -4,6 +4,7 @@ import { prisma } from "../../lib/prisma";
 import { TLogin } from "./auth.interface";
 import { jwtHelpers } from "../../shared/jwtHelpers";
 import config from "../../config";
+import { JwtPayload } from "jsonwebtoken";
 
 const userLoginToDB = async (payload: TLogin) => {
   const user = await prisma.user.findUnique({
@@ -43,15 +44,15 @@ const userLoginToDB = async (payload: TLogin) => {
 };
 
 const getMeFromDb = async (token: string) => {
-  const userData = jwtHelpers.verifyToken(
+  const userData = await jwtHelpers.verifyToken(
     token,
     config.jwt_access_token_secret as string,
   );
   if (!userData) {
     throw new ApiError(401, "Access unauthorized please login.");
   }
-  const { email } = userData;
-  const user = await prisma.user.findUnique({
+  const email = userData?.data?.email;
+  const user = await prisma.user.findUniqueOrThrow({
     where: { email },
     omit: { password: true },
   });

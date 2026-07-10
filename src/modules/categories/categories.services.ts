@@ -12,7 +12,9 @@ const createCategoryToDB = async (title: string) => {
 };
 
 const getAllCategoriesFromDB = async () => {
-  const categories = await prisma.category.findMany({});
+  const categories = await prisma.category.findMany({
+    include: { properties: true },
+  });
   return categories;
 };
 

@@ -109,7 +109,7 @@ export const RentalRequestScalarFieldEnum = {
   tenantId: 'tenantId',
   propertyId: 'propertyId',
   moveInDate: 'moveInDate',
-  moveOutTime: 'moveOutTime',
+  moveOutDate: 'moveOutDate',
   status: 'status',
   message: 'message',
   createdAt: 'createdAt',

@@ -33,7 +33,7 @@ const createPropertyZodSchema = z.object({
   status: z.enum(["AVAILABLE", "RENTED", "UNAVAILABLE"]).optional(),
 
   areaSize: z
-    .number("Area size is required")
+    .number("Area size is required And must be number")
     .positive("Area size must be a positive number"),
 
   images: z.array(z.url("Each image must be a valid URL")).optional(),

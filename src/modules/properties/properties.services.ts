@@ -6,10 +6,21 @@ const createPropertiesToDB = async (
   payload: TProperties,
   landlordId: string,
 ) => {
+  const user = await prisma.user.findUniqueOrThrow({
+    where: { id: landlordId },
+  });
+  if (user.status === "BLOCKED" || user.status === "INACTIVE") {
+    throw new ApiError(
+      401,
+      "You don't have Access to add properties. please contact suppport !",
+    );
+  }
+
   const data = await prisma.property.create({
     data: { landlordId: landlordId, ...payload },
+    include: { landlord: true },
   });
-  console.log("property: ", data);
+
   return data;
 };
 const getAllPropertiesFromDB = async () => {
@@ -17,8 +28,11 @@ const getAllPropertiesFromDB = async () => {
   return data;
 };
 const getSinglePropertiesFromDB = async (id: string) => {
-  const data = await prisma.property.findUniqueOrThrow({ where: { id } });
-  console.log(data, "inside single pro");
+  const data = await prisma.property.findUniqueOrThrow({
+    where: { id },
+    include: { landlord: true },
+  });
+
   return data;
 };
 const updatePropertiseToDB = async (
@@ -40,7 +54,6 @@ const updatePropertiseToDB = async (
   return updateProperty;
 };
 const getallOwnPropertiesFromDB = async (id: string) => {
-  console.log(id);
   const data = await prisma.property.findMany({ where: { landlordId: id } });
   return data;
 };

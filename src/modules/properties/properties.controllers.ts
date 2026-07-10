@@ -58,7 +58,6 @@ const updateProperties = catchAsync(async (req, res) => {
 });
 const getAllOwnProperties = catchAsync(async (req, res) => {
   const userId = req.user?.id;
-  console.log(userId, "at own pro");
   const result = await propertiesService.getallOwnPropertiesFromDB(
     userId as string,
   );

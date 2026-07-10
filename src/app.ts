@@ -8,6 +8,7 @@ import notFound from "./middleware/notFound";
 import { authRouter } from "./modules/auth/auth.routes";
 import { categoriesRoute } from "./modules/categories/categories.routes";
 import { propertiesRoutes } from "./modules/properties/properties.routes";
+import { rentalRequestRoutes } from "./modules/rentalRequest/rentalRequest.routes";
 const app: Application = express();
 app.use(
   cors({
@@ -28,6 +29,7 @@ app.use("/api/admin", userAdminRoute);
 app.use("/api/auth", authRouter);
 app.use("/api", categoriesRoute);
 app.use("/api", propertiesRoutes);
+app.use("/api", rentalRequestRoutes);
 
 app.use(globalErrorHandler);
 app.use(notFound);
