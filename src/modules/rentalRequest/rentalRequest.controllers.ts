@@ -2,7 +2,8 @@ import status from "http-status";
 import catchAsync from "../../shared/catchAsync";
 import sendResponse from "../../shared/sendResponse";
 import { rentalRequestService } from "./rentalRequest.services";
-
+import { JwtPayload } from "jsonwebtoken";
+import httpStatus from "http-status";
 const createRentalRequest = catchAsync(async (req, res) => {
   const userId = req.user?.id;
   const payload = req.body;
@@ -19,10 +20,9 @@ const createRentalRequest = catchAsync(async (req, res) => {
   });
 });
 const getRentalRequest = catchAsync(async (req, res) => {
-  const userId = req.user?.id;
-  console.log(userId, "get rental controller");
+  const user = req.user;
   const result = await rentalRequestService.getRentalRequestToDB(
-    userId as string,
+    user as JwtPayload,
   );
   sendResponse(res, {
     statusCode: status.OK,
@@ -43,9 +43,25 @@ const getRentalRequestDetails = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
+const updatedRentalRequest = catchAsync(async (req, res) => {
+  const user = req.user;
+  const { id } = req.params;
+  const { status } = req.body;
+  const result = await rentalRequestService.updatedRentalRequestToDB(
+    id as string,
+    user as JwtPayload,
+    status,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Updated rental  Successfull",
+    data: result,
+  });
+});
 export const rentalRequestController = {
   createRentalRequest,
   getRentalRequest,
   getRentalRequestDetails,
+  updatedRentalRequest,
 };

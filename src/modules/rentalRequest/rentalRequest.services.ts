@@ -1,6 +1,9 @@
+import { JwtPayload } from "jsonwebtoken";
 import ApiError from "../../error/ApiError";
 import { prisma } from "../../lib/prisma";
 import { TRentalRequest } from "./rentalRequest.interfaces";
+import { RequestStatus } from "../../../prisma/generated/prisma/enums";
+import httpStatus from "http-status";
 
 const createRentalRequestToDB = async (
   userId: string,
@@ -60,11 +63,29 @@ const createRentalRequestToDB = async (
   return rental;
 };
 
-const getRentalRequestToDB = async (id: string) => {
-  console.log(id, "getRental");
-  const rental = await prisma.rentalRequest.findMany({
-    where: { tenantId: id },
-  });
+const getRentalRequestToDB = async (user: JwtPayload) => {
+  const { id, role } = user;
+  let rental;
+  if (role === "TENANT") {
+    rental = await prisma.rentalRequest.findMany({
+      where: { tenantId: id },
+    });
+  } else if (role === "LANDLORD") {
+    rental = await prisma.rentalRequest.findMany({
+      where: {
+        property: {
+          landlordId: id,
+        },
+      },
+      include: {
+        property: true,
+        tenant: true,
+      },
+    });
+  } else if (role === "ADMIN") {
+    rental = await prisma.rentalRequest.findMany({});
+  }
+
   return rental;
 };
 const getRentalRequestDetailsFromDB = async (id: string) => {
@@ -74,9 +95,62 @@ const getRentalRequestDetailsFromDB = async (id: string) => {
   });
   return rentalDetails;
 };
+const updatedRentalRequestToDB = async (
+  rentalId: string,
+  user: JwtPayload,
+  Rentalstatus: RequestStatus,
+) => {
+  const { id: userId } = user;
 
+  const rentalRequest = await prisma.rentalRequest.findUnique({
+    where: { id: rentalId },
+    include: { property: true },
+  });
+
+  if (!rentalRequest) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Rental request not found");
+  }
+
+  if (rentalRequest.property.landlordId !== userId) {
+    throw new ApiError(
+      httpStatus.FORBIDDEN,
+      "You are not authorized to update this rental request",
+    );
+  }
+
+  if (rentalRequest.status !== "PENDING") {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `This request is already ${rentalRequest.status.toLowerCase()}, cannot update again`,
+    );
+  }
+
+  if (Rentalstatus === "APPROVED") {
+    const alreadyApproved = await prisma.rentalRequest.findFirst({
+      where: {
+        propertyId: rentalRequest.propertyId,
+        status: "APPROVED",
+      },
+    });
+
+    if (alreadyApproved) {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST,
+        "This property already has an approved rental request",
+      );
+    }
+  }
+
+  const updatedRental = await prisma.rentalRequest.update({
+    where: { id: rentalId },
+    data: { status: Rentalstatus },
+  });
+
+  return updatedRental;
+};
 export const rentalRequestService = {
   createRentalRequestToDB,
   getRentalRequestToDB,
   getRentalRequestDetailsFromDB,
+  updatedRentalRequestToDB,
 };

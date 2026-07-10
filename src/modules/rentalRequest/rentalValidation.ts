@@ -9,15 +9,11 @@ const createRentalRequestSchema = z.object({
   message: z.string().optional(),
 });
 
-// const updateRentalRequestSchema = z.object({
-//   propertyId: z.string("Property is required").optional(),
-//   moveInDate: z.date("Move in time is required !").optional(),
-//   moveOutDate: z.date("Move out time is required !").optional(),
-//   status: z.enum(["PENDING", "APPROVED", "REJECTED", "CANCELLED"]).optional(),
-//   message: z.string().optional(),
-// });
+const updateRentalRequestSchema = z.object({
+  status: z.enum(["PENDING", "APPROVED", "REJECTED", "CANCELLED"]),
+});
 
 export const rentalRequestSchemas = {
   createRentalRequestSchema,
-  // updateRentalRequestSchema,
+  updateRentalRequestSchema,
 };
