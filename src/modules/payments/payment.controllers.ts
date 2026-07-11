@@ -33,7 +33,7 @@ const paymentSuccess = catchAsync(async (req: Request, res: Response) => {
   );
 });
 
-const paymentFail = catchAsync(async (req: Request, res: Response) => {
+const paymentFail = catchAsync(async (req, res) => {
   const { transactionId } = req.params;
   await paymentService.markPaymentAs(transactionId as string, "FAILED");
   return res.redirect(
@@ -41,7 +41,7 @@ const paymentFail = catchAsync(async (req: Request, res: Response) => {
   );
 });
 
-const paymentCancel = catchAsync(async (req: Request, res: Response) => {
+const paymentCancel = catchAsync(async (req: Request, res) => {
   const { transactionId } = req.params;
   await paymentService.markPaymentAs(transactionId as string, "CANCELLED");
   return res.redirect(
@@ -49,12 +49,29 @@ const paymentCancel = catchAsync(async (req: Request, res: Response) => {
   );
 });
 
-const paymentIPN = catchAsync(async (req: Request, res: Response) => {
+const paymentIPN = catchAsync(async (req, res) => {
   const valId = req.body.val_id;
   if (valId) {
     await paymentService.validateAndCompletePayment(valId);
   }
   res.status(200).send("IPN received");
+});
+
+const getPaymentStatus = catchAsync(async (req: Request, res: Response) => {
+  const { rentalRequestId } = req.params;
+  const tenantId = req.user?.id as string;
+
+  const result = await paymentService.getPaymentStatusFromDB(
+    rentalRequestId as string,
+    tenantId,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Payment status retrieved successfully",
+    data: result,
+  });
 });
 
 export const paymentController = {
@@ -63,4 +80,5 @@ export const paymentController = {
   paymentFail,
   paymentCancel,
   paymentIPN,
+  getPaymentStatus,
 };

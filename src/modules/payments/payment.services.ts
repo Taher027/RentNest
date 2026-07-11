@@ -162,8 +162,44 @@ const markPaymentAs = async (
   return updatedPayment;
 };
 
+const getPaymentStatusFromDB = async (
+  rentalRequestId: string,
+  tenantId: string,
+) => {
+  const rentalRequest = await prisma.rentalRequest.findUnique({
+    where: { id: rentalRequestId },
+    include: { payment: true },
+  });
+
+  if (!rentalRequest) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Rental request not found");
+  }
+
+  if (rentalRequest.tenantId !== tenantId) {
+    throw new ApiError(
+      httpStatus.FORBIDDEN,
+      "You are not authorized to view this payment status",
+    );
+  }
+
+  if (!rentalRequest.payment) {
+    return {
+      status: "NOT_INITIATED",
+      message: "Payment has not been initiated yet for this rental request",
+    };
+  }
+
+  return {
+    status: rentalRequest.payment.status,
+    amount: rentalRequest.payment.amount,
+    transactionId: rentalRequest.payment.transactionId,
+    updatedAt: rentalRequest.payment.updatedAt,
+  };
+};
+
 export const paymentService = {
   initiatePaymentIntoDB,
   validateAndCompletePayment,
   markPaymentAs,
+  getPaymentStatusFromDB,
 };

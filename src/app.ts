@@ -10,6 +10,7 @@ import { categoriesRoute } from "./modules/categories/categories.routes";
 import { propertiesRoutes } from "./modules/properties/properties.routes";
 import { rentalRequestRoutes } from "./modules/rentalRequest/rentalRequest.routes";
 import { paymentRoutes } from "./modules/payments/payment.routes";
+import { reviewRoutes } from "./modules/review/review.rotues";
 const app: Application = express();
 app.use(
   cors({
@@ -32,6 +33,7 @@ app.use("/api", categoriesRoute);
 app.use("/api", propertiesRoutes);
 app.use("/api", rentalRequestRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 app.use(globalErrorHandler);
 app.use(notFound);

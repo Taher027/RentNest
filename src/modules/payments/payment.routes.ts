@@ -5,6 +5,11 @@ import { paymentController } from "./payment.controllers";
 const router = express.Router();
 
 router.post("/initiate", auth("TENANT"), paymentController.initiatePayment);
+router.get(
+  "/status/:rentalRequestId",
+  auth("TENANT"),
+  paymentController.getPaymentStatus,
+);
 
 router.all("/success/:transactionId", paymentController.paymentSuccess);
 router.all("/fail/:transactionId", paymentController.paymentFail);
