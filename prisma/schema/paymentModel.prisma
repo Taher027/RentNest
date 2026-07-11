@@ -3,7 +3,7 @@ model Payment {
     rentalRequestId String @unique
     rentalRequest RentalRequest @relation(fields: [rentalRequestId], references: [id], onDelete: Cascade)
     tenantId String
-    amount Float
+    amount Decimal  @db.Decimal(10,2)
     transactionId String @unique
     status PaymentStatus @default(PENDING)
     paymentGatewayData Json?
