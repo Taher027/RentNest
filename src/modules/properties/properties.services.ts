@@ -1,3 +1,4 @@
+import { omit } from "zod/mini";
 import { Prisma } from "../../../prisma/generated/prisma/client";
 import ApiError from "../../error/ApiError";
 import { prisma } from "../../lib/prisma";
@@ -21,7 +22,11 @@ const createPropertiesToDB = async (
 
   const data = await prisma.property.create({
     data: { landlordId: landlordId, ...payload },
-    include: { landlord: true },
+    include: {
+      landlord: {
+        omit: { password: true },
+      },
+    },
   });
 
   return data;
@@ -89,7 +94,7 @@ const getAllPropertiesFromDB = async (filters: TPropertyFilters) => {
     include: {
       category: true,
       landlord: {
-        select: { id: true, name: true, email: true },
+        omit: { password: true },
       },
     },
     orderBy: { createdAt: "desc" },

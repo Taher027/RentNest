@@ -44,6 +44,9 @@ const getAllUsersFromDb = async () => {
 const getSingleUserFromDb = async (id: string) => {
   const user = prisma.user.findUniqueOrThrow({
     where: { id },
+    omit: {
+      password: true,
+    },
     include: { properties: true },
   });
 
@@ -54,6 +57,9 @@ const updatedUserRoleToDB = async (userId: string, status: UserStatus) => {
   const updatedUser = await prisma.user.update({
     where: { id: user.id },
     data: status,
+    omit: {
+      password: true,
+    },
   });
 };
 const deleteAllusersFromDB = async (id: string) => {
