@@ -10,6 +10,7 @@ model RentalRequest {
     message String? @db.Text
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    payment Payment?
 
     @@unique([tenantId,propertyId])
     @@index([tenantId, propertyId])

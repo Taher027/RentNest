@@ -31,7 +31,7 @@ export const auth = (...requiredRoles: UserRole[]) => {
         throw new ApiError(401, verifiedToken.error);
       }
 
-      const { email, id, role } = verifiedToken.data as JwtPayload;
+      const { email, id, role, name } = verifiedToken.data as JwtPayload;
 
       if (requiredRoles.length && !requiredRoles.includes(role)) {
         throw new ApiError(401, "Unauthorized access.");
@@ -56,6 +56,7 @@ export const auth = (...requiredRoles: UserRole[]) => {
       }
 
       req.user = {
+        name,
         email,
         id,
         role,

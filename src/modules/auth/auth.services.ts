@@ -22,6 +22,7 @@ const userLoginToDB = async (payload: TLogin) => {
     throw new ApiError(404, "Invalid creadentials");
   }
   const payloadData = {
+    name: user.name,
     id: user.id,
     email: user.email,
     role: user.role,
