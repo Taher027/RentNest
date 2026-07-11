@@ -56,8 +56,8 @@ const updatedUserRoleToDB = async (userId: string, status: UserStatus) => {
     data: status,
   });
 };
-const deleteAllusersFromDB = async () => {
-  const data = await prisma.user.deleteMany({});
+const deleteAllusersFromDB = async (id: string) => {
+  const data = await prisma.user.delete({ where: { id } });
   return data;
 };
 
